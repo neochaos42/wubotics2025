@@ -3,7 +3,7 @@
 	<joint name="laser_joint" type="fixed">
 		<parent link="chassis" />
 		<child link="laser_frame" />
-		<origin xyz="0 0 0.12" rpy="0 0 ${pi}" />
+		<origin xyz="0 0 0.2" rpy="0 0 ${pi}" />
 	</joint>
 	<link name="laser_frame">
 		<visual>
@@ -30,7 +30,7 @@
 				0 0 0 0 0 0
 			</pose>
 			<visualize>
-				true
+				false
 			</visualize>
 			<update_rate>
 				10
