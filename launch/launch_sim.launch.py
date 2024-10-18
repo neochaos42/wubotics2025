@@ -53,7 +53,15 @@ def generate_launch_description():
         executable="spawner.py",
         arguments=["joint_broad"],
     )
-
+    robot_localization_parms = os.path.join(get_package_share_directory(
+        package_name), 'config', 'ekf.yaml')
+    robot_localization = Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[{'use_sim_time': True}, robot_localization_parms]
+    )
 
     # Code for delaying a node (I haven't tested how effective it is)
     # 
@@ -79,5 +87,6 @@ def generate_launch_description():
         gazebo,
         spawn_entity,
         diff_drive_spawner,
-        joint_broad_spawner
+        joint_broad_spawner,
+        #robot_localization
     ])

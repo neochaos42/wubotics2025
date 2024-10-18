@@ -38,7 +38,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(
                 package_name), 'launch', 'realsense.launch.py'
-        )]), parameters=[realsense_params_file]
+        )]), launch_arguments=['config_file: ' + realsense_params_file]
     )
     imu = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
@@ -53,7 +53,7 @@ def generate_launch_description():
         executable='ekf_node',
         name='ekf_filter_node',
         output='screen',
-        parameters=[robot_localization_parms]
+        parameters=[{'use_sim_time': 'false'}, robot_localization_parms]
     )
 
     robot_description = ParameterValue(Command(
@@ -97,7 +97,15 @@ def generate_launch_description():
             on_start=[joint_broad_spawner],
         )
     )
-
+    slam = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory(
+                package_name), 'launch', 'rtabmap.launch.py'
+        )])
+    )
+    delayed_slam = TimerAction(
+        period=6.0, actions=[slam]
+    )
     nav2 = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(
@@ -133,5 +141,6 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner
+        #delayed_slam,
         #delayed_nav2
     ])
