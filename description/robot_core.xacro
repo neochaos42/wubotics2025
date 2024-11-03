@@ -3,7 +3,7 @@
 
     <xacro:include filename="inertial_macros.xacro"/>
 
-    <xacro:property name="chassis_length" value="0.254"/>
+    <xacro:property name="chassis_length" value="0.24455"/>
     <xacro:property name="chassis_width" value="0.149225"/>
     <xacro:property name="chassis_height" value="0.1651"/>
     <xacro:property name="chassis_mass" value="1.0"/>
