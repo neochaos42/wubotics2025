@@ -133,7 +133,7 @@ def generate_launch_description():
 
     # Launch them all!
     return LaunchDescription([
-        lidar,
+        #lidar,
         rsp,
         #realsense,
         #imu,
