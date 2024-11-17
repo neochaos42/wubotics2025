@@ -5,9 +5,31 @@
     <include>
       <uri>model://sun</uri>
     </include>
+    
     <!-- A ground plane -->
     <include>
       <uri>model://ground_plane</uri>
     </include>
+    
+    <!-- DART physics engine configuration -->
+    <physics type="dart">
+      <max_step_size>0.001</max_step_size>                  <!-- Time step for simulation updates -->
+      <real_time_update_rate>1000</real_time_update_rate>   <!-- Matches with the controller's update rate -->
+      <gravity>0 0 -9.81</gravity>                          <!-- Standard gravity -->
+      
+      <!-- DART-specific parameters -->
+      <dart>
+        <solver>
+          <solver_type>pgs</solver_type>                    <!-- Solver type: pgs, lemke, or dantzig -->
+          <dt>0.001</dt>                                    <!-- Time step, matches max_step_size -->
+          <force_tolerance>1e-5</force_tolerance>           <!-- Force tolerance for constraint solver -->
+          <max_iterations>200</max_iterations>              <!-- Max solver iterations for accurate constraints -->
+        </solver>
+        <collision>
+          <friction>0.9</friction>                          <!-- Global friction coefficient -->
+          <restitution>0.0</restitution>                    <!-- Global restitution for bounciness -->
+        </collision>
+      </dart>
+    </physics>
   </world>
 </sdf>
