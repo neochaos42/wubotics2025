@@ -12,7 +12,7 @@
     <xacro:property name="wheel_mass" value="0.05"/>
     <xacro:property name="wheel_offset_x" value="0.1016"/>
     <xacro:property name="wheel_offset_y" value="0.0993"/>
-    <xacro:property name="wheel_offset_z" value="0.0150241"/>
+    <xacro:property name="wheel_offset_z" value="-0.0150241"/>
 
     <material name="white">
         <color rgba="1 1 1 1"/>
