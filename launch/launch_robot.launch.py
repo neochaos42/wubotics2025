@@ -133,14 +133,14 @@ def generate_launch_description():
 
     # Launch them all!
     return LaunchDescription([
-        lidar,
+        #lidar,
         rsp,
         #realsense,
         #imu,
         #robot_localization,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
-        delayed_joint_broad_spawner
+        delayed_joint_broad_spawner,
         #delayed_slam,
         #delayed_nav2
     ])

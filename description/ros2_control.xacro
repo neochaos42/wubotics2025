@@ -14,6 +14,10 @@
                 <param name="baud_rate">57600</param>
                 <param name="timeout">1000</param>
                 <param name="enc_counts_per_rev">5760</param>
+                <param name="k_p">30</param>
+                <param name="k_i">20</param>
+                <param name="k_d">0</param>
+                <param name="k_o">100</param>
             </hardware>
             <joint name="front_left_wheel_joint">
                 <command_interface name="velocity">
