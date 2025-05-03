@@ -1,0 +1,6 @@
+camera: "oak"  # Matches the namespace defined in oak_config.yaml
+engine_file_path: "${ISAAC_ROS_WS:?}/isaac_ros_assets/models/dnn_stereo_disparity/dnn_stereo_disparity_v4.1.0_onnx/ess.engine"
+threshold: 0.5  # Adjusted threshold value for better disparity filtering
+input_layer_width: 1280  # Matches the width defined in the Oak-D configuration
+input_layer_height: 800  # Matches the height defined in the Oak-D configuration
+type_negotiation_duration_s: 5  # Duration for type negotiation

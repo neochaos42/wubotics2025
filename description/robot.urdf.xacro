@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
     <xacro:arg name="use_ros2_control" default="true"/>
     <xacro:arg name="sim_mode" default="false"/>
@@ -12,7 +12,25 @@
     <xacro:unless value="$(arg use_ros2_control)">
         <xacro:include filename="gazebo_control.xacro" />
     </xacro:unless>
-    <xacro:include filename="lidar.xacro" />`
-    <xacro:include filename="depth_camera.xacro" /> 
-    <xacro:include filename="IMU.xacro" /> 
+
+    <xacro:include filename="lidar.xacro" />
+    <xacro:include filename="IMU.xacro" />
+
+    <!-- Include the DepthAI description -->
+    <xacro:include filename="$(find depthai_descriptions)/urdf/depthai_descr.urdf.xacro" />
+
+    <!-- Add the DepthAI camera -->
+    <xacro:depthai_camera
+        camera_name="oak"
+        camera_model="OAK-D-PRO"
+        base_frame="oak-d-base-frame"
+        parent="base_link"
+        cam_pos_x="0.0"
+        cam_pos_y="0.0"
+        cam_pos_z="0.0"
+        cam_roll="0.0"
+        cam_pitch="0.0"
+        cam_yaw="0.0"
+    />
+
 </robot>

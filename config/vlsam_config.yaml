@@ -1,0 +1,19 @@
+visual_slam_node:
+  ros__parameters:
+    enable_image_denoising: False
+    rectified_images: True
+    enable_imu_fusion: True
+    gyro_noise_density: 0.000244
+    gyro_random_walk: 0.000019393
+    accel_noise_density: 0.001862
+    accel_random_walk: 0.003
+    calibration_frequency: 200.0
+    image_jitter_threshold_ms: 22.00
+    base_frame: oak_base_frame
+    imu_frame: oak_imu_frame
+    enable_slam_visualization: True
+    enable_landmarks_view: True
+    enable_observations_view: True
+    camera_optical_frames:
+      - oak_left_optical_frame
+      - oak_right_optical_frame

@@ -1,8 +1,6 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
-
-
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -26,32 +24,12 @@ def generate_launch_description():
                 package_name), 'launch', 'rsp.launch.py'
         )]), launch_arguments={'use_sim_time': 'false', 'use_ros2_control': 'true'}.items()
     )
-    lidar = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(
-                package_name), 'launch', 'lidar.launch.py'
-        )])
-    )
-    realsense_params_file = os.path.join(get_package_share_directory(
-        package_name), 'config', 'realsense.yaml')
-    realsense = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(
-                package_name), 'launch', 'realsense.launch.py'
-        )]), launch_arguments=['config_file: ' + realsense_params_file]
-    )
-    oak_d_parms_file = os.path.join(get_package_share_directory(package_name), 'config', 'oak_d.yaml')
+    oak_d_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'oak_config.yaml')
     oak_d = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(
                 package_name), 'launch', 'oak_d.launch.py'
-        )]), launch_arguments=['config_file: ' + oak_d_parms_file]
-    )
-    imu = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(
-                package_name), 'launch', 'IMU.launch.py'
-        )])
+        )]), launch_arguments={'params_file': oak_d_params_file}.items()
     )
     robot_localization_parms = os.path.join(get_package_share_directory(
         package_name), 'config', 'ekf.yaml')
@@ -104,50 +82,18 @@ def generate_launch_description():
             on_start=[joint_broad_spawner],
         )
     )
-    slam = IncludeLaunchDescription(
+    ess = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(
-                package_name), 'launch', 'rtabmap.launch.py'
-        )])
+                package_name), 'launch', 'ESS.launch.py'
+        )]), launch_arguments={'use_sim_time': 'false'}.items()
     )
-    delayed_slam = TimerAction(
-        period=6.0, actions=[slam]
-    )
-    nav2 = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory(
-                package_name), 'launch', 'nav2.launch.py'
-        )])
-    )
-    delayed_nav2 = TimerAction(
-        period=6.0, actions=[nav2]
-    )
-    # Code for delaying a node (I haven't tested how effective it is)
-    #
-    # First add the below lines to imports
-    # from launch.actions import RegisterEventHandler
-    # from launch.event_handlers import OnProcessExit
-    #
-    # Then add the following below the current diff_drive_spawner
-    # delayed_diff_drive_spawner = RegisterEventHandler(
-    #     event_handler=OnProcessExit(
-    #         target_action=spawn_entity,
-    #         on_exit=[diff_drive_spawner],
-    #     )
-    # )
-    #
-    # Replace the diff_drive_spawner in the final return with delayed_diff_drive_spawner
 
     # Launch them all!
     return LaunchDescription([
-        #lidar,
         rsp,
         oak_d,
-        #imu,
-        #robot_localization,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
-        #delayed_slam,
-        #delayed_nav2
     ])
