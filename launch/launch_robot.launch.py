@@ -40,6 +40,13 @@ def generate_launch_description():
                 package_name), 'launch', 'realsense.launch.py'
         )]), launch_arguments=['config_file: ' + realsense_params_file]
     )
+    oak_d_parms_file = os.path.join(get_package_share_directory(package_name), 'config', 'oak_d.yaml')
+    oak_d = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory(
+                package_name), 'launch', 'oak_d.launch.py'
+        )]), launch_arguments=['config_file: ' + oak_d_parms_file]
+    )
     imu = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory(
@@ -135,7 +142,7 @@ def generate_launch_description():
     return LaunchDescription([
         #lidar,
         rsp,
-        #realsense,
+        oak_d,
         #imu,
         #robot_localization,
         delayed_controller_manager,
