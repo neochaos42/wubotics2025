@@ -88,7 +88,27 @@ def generate_launch_description():
                 package_name), 'launch', 'ESS.launch.py'
         )]), launch_arguments={'use_sim_time': 'false'}.items()
     )
-
+    vslam_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'vslam_config.yaml')
+    vslam = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory(
+                package_name), 'launch', 'vslam.launch.py'
+        )]), launch_arguments={'params_file': vslam_params_file}.items()
+    )
+    nvblox_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'nvblox_config.yaml')
+    nvblox = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory(
+                package_name), 'launch', 'nvblox.launch.py'
+        )]), launch_arguments={'params_file': nvblox_params_file}.items()
+    )
+    nav2_params_file = os.path.join(get_package_share_directory(package_name), 'config', 'nav2_config.yaml')
+    nav2 = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory(
+                package_name), 'launch', 'nav2.launch.py'
+        )]), launch_arguments={'params_file': nav2_params_file}.items()
+    )                
     # Launch them all!
     return LaunchDescription([
         rsp,
@@ -96,4 +116,9 @@ def generate_launch_description():
         delayed_controller_manager,
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
+        ess,
+        vslam,
+        robot_localization,
+        nvblox,
+        nav2
     ])
